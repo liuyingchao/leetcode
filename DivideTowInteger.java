@@ -1,3 +1,30 @@
+// A cleaner solution using long to save the hassel of dealing with overflow/underflow
+public class Solution {
+    public int divide(int dividend, int divisor) {
+    	boolean isNeg = dividend > 0 && divisor < 0 ||
+    			dividend < 0 && divisor > 0;
+    	// boolean isNeg = (dividend < 0);
+    	// if (divisor < 0) isNeg = !isNeg;
+    	long dividendL = Math.abs((long) dividend);
+    	long divisorL = Math.abs((long) divisor);
+    	
+    	int res = 0;
+        while (dividendL >= divisorL) {
+        	long div = divisorL;
+        	long current = 1;
+        	while (dividendL >= div << 1) {
+        		div <<= 1;
+        		current <<= 1;
+        	}
+        	dividendL -= div;
+        	res += current;
+        }
+        
+        return isNeg ? -res : res;
+    }
+}
+
+// My original code
 public class Solution {
     public int divide(int dividend, int divisor) {
       // MY NOTE: revisit whether the following special cases can be refactored
