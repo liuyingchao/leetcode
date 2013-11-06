@@ -9,6 +9,47 @@
  *     }
  * }
  */
+// A much cleaner solution
+public class Solution {
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        ListNode dummy = new ListNode(0);
+        ListNode current = dummy;
+        ListNode min;
+        boolean l1Selected;
+        while (l1 != null && l2 != null) {
+        	l1Selected = l1.val < l2.val;
+        	min = l1Selected ? l1 : l2;
+        	current.next = min;
+        	current = current.next;
+        	if (l1Selected) {
+        		l1 = l1.next;
+        	} else {
+        		l2 = l2.next;
+        	}
+        }
+        if (l1 == null) {
+        	current.next = l2;
+        } 
+        if (l2 == null) {
+        	current.next = l1;
+        }
+        	
+		return dummy.next;
+    }
+}
+
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
  // MY NOTE: this code is very ugly. Revisit how to refactor the loop body.
 public class Solution {
     public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
