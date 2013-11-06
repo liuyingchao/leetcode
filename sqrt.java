@@ -13,7 +13,7 @@ public class Solution {
 	    }
 	    return (int) max;
 	}
-	}
+}
 
 
 // Ugly code
