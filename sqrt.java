@@ -1,3 +1,22 @@
+// Cleaner version making use of long type
+public class Solution {
+	public int sqrt(int x) {
+		long min = 0;
+		long max = x / 2 + 1;
+	    while (min <= max)
+	    {
+	        long mid = (min + max) / 2;
+	        long sq = mid * mid;
+	        if (sq == x) return (int) mid;
+	        else if (sq < x) min = mid + 1;
+	        else max = mid - 1;
+	    }
+	    return (int) max;
+	}
+	}
+
+
+// Ugly code
 public class Solution {
     // NOTE: this has to use 2^31 instead of 2^32
 	private static int UPPER = 46340; // sqrt(2^31)
