@@ -1,0 +1,25 @@
+public class Solution {
+    public int maxSubArray(int[] A) {
+    	int N = A.length;
+    	if (N == 0) {
+    		return 0;
+    	}
+    	
+    	int[] f = new int[N];
+    	int[] maxTail = new int[N];
+    	
+    	f[0] = A[0];
+    	// Notice the requirement is different from Programming Pearls, where
+    	// 0 is returned if all elements are negative. In this problem, we'll
+    	// return the max element if all elements are negative.
+    	maxTail[0] = f[0];
+    	
+    	for (int i = 1; i < N; i++) {
+    		int newEnd = maxTail[i-1] + A[i];
+    		maxTail[i] = newEnd < A[i] ? A[i] : newEnd;
+    		f[i] = f[i-1] > maxTail[i] ? f[i-1] : maxTail[i];
+    	}
+    	
+    	return f[N-1];
+    }
+}
