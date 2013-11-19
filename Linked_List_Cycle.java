@@ -40,3 +40,26 @@ public class Solution {
         return false;
     }
 }
+
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        if (head == null || head.next == null) {
+        	return false;
+        }
+        ListNode fast = head.next.next;
+        ListNode slow = head;
+        
+        while (true) {
+        	if (fast == slow) {
+        		return true;
+        	}
+        	
+        	if (fast == null || fast.next == null) {
+        		return false;
+        	}
+        	
+        	slow = slow.next;
+        	fast = fast.next.next;
+        }
+    }
+}
