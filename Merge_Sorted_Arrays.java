@@ -1,5 +1,6 @@
 public class Solution {
     public void merge(int A[], int m, int B[], int n) {
+        //$ TODO: there is a bug. For [1, 2, 3], [2,5,6], my output is [1, 2, 2, 3, 5, 3]
     	for (int i = 0; i < m; i++) {
     		A[i+n] = A[i];
     	}
@@ -21,7 +22,7 @@ public class Solution {
     	} else {
     		for (int r = i; r < m + n; r++) {
     			A[k++] = A[r++]; 
-    		}a
+    		}
     	}
     }
 }
