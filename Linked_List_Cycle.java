@@ -15,10 +15,8 @@ public class Solution {
         	return false;
         }
 
-        ListNode dummy =  new ListNode(0);
-        dummy.next =  head;
-        ListNode fast = dummy;
-        ListNode slow = dummy;
+        ListNode fast = head;
+        ListNode slow = head;
         
         while (fast != null && fast.next != null) {
         	fast = fast.next;
