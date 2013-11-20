@@ -1,6 +1,6 @@
 public class Solution {
     public void merge(int A[], int m, int B[], int n) {
-        //$ TODO: there is a bug. For [1, 2, 3], [2,5,6], my output is [1, 2, 2, 3, 5, 3]
+        // Notice we need to copy downwards to avoid overwiting data incorrectly
     	for (int i = 0; i < m; i++) {
     		A[i+n] = A[i];
     	}
@@ -8,7 +8,7 @@ public class Solution {
     	int i = n, j = 0, k = 0;
     	
     	while (i < m+n && j < n) {
-    		if (A[i] < B[j]) {
+    		if (A[i] <= B[j]) {
     			A[k++] = A[i++];
     		} else {
     			A[k++] = B[j++];
@@ -16,13 +16,9 @@ public class Solution {
     	}
     	
     	if (i >= m + n) {
-    		for (int r = j; r < n; r++) {
+    		for (int r = j; r < n;) {
     			A[k++] = B[r++]; 
     		}
-    	} else {
-    		for (int r = i; r < m + n; r++) {
-    			A[k++] = A[r++]; 
-    		}
-    	}
+    	} // No need to copy for "else", because in this case, A's remaining elements are already in place.
     }
 }
