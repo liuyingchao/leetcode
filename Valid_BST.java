@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 
-//$ TODO: bug--returns false for {0, -1}
 /**
  * Definition for binary tree
  * public class TreeNode {
@@ -11,8 +10,9 @@ import java.util.ArrayList;
  * }
  */
 public class Solution {
-	private int prev = Integer.MIN_VALUE;
+	private int prev;
 	public boolean isValidBST(TreeNode root) {
+		this.prev = Integer.MIN_VALUE;
 		if (root == null) return true;
 		return isValid(root);
     }
@@ -20,16 +20,10 @@ public class Solution {
 	private boolean isValid(TreeNode root) {
 		if (root == null) return true;
 		
-		if (root.left != null && !isValid(root.left)) {
-			return false;
-		}
-		if (root.val <= prev) return false;
+		// Notice the order of || is VERY important, because isValid() update prev internally 
+		if (!isValid(root.left) || root.val <= prev) return false;
 		
 		prev = root.val;
-		
-		if (root.right != null && !isValid(root.left)) {
-			return false;
-		}
-		return true;	
+		return isValid(root.right);	
 	}
 }
