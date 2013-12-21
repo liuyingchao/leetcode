@@ -13,18 +13,21 @@ public class Solution {
         int N = s.length;
         for (int i = 0; i < N; i++) {
         	int newVal = s[i];
-        	int length = ret.size();
-        	for (int j = 0; j < length; j++) {
-        		ArrayList<Integer> member = ret.get(j);
-        		// Be careful to create a new clone instead of messing with the original member
-        		ArrayList<Integer> clone = new ArrayList<Integer>();
-        		for (Integer val : member) {
-        			clone.add(val);
-        		}
-        		clone.add(newVal);
-        		ret.add(clone);
-        	}        	
+        	helper(newVal, ret);        	
         }
         return ret;
+    }
+    
+    public void helper(int newVal, ArrayList<ArrayList<Integer>> set) {
+    	int length = set.size();
+    	for (int i = 0; i < length; i++) {
+    		ArrayList<Integer> member = set.get(i);
+    		ArrayList<Integer> clone = new ArrayList<Integer>();
+    		for (Integer val : member) {
+    			clone.add(val);
+    		}
+    		clone.add(newVal);
+    		set.add(clone);
+    	}
     }
 }
