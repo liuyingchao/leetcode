@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-// There is runtime error that I haven't been able to debug
+
 public class Solution {
 	private static int m, n;
     public ArrayList<Integer> spiralOrder(int[][] matrix) {
@@ -20,6 +20,8 @@ public class Solution {
     private void appendOutput(ArrayList<Integer> list, int[][] matrix, int topLeft) {
     	int width = n - topLeft * 2;
     	int height = m - topLeft * 2;
+    	// The following 2 branches can be merged into the last else branch, but that'll
+    	// be harder to read
     	if (width == 1) {
     		for (int i = topLeft; i < topLeft + height; i++) {
     			list.add(matrix[i][topLeft]);
@@ -42,7 +44,7 @@ public class Solution {
     			list.add(matrix[bottomEdge][i]);
     		}
     		for (int i = bottomEdge - 1; i > topLeft; i--) {
-    			list.add(matrix[topLeft][i]);
+    			list.add(matrix[i][topLeft]);
     		}
     		topLeft++;
     		int size = Math.min(m, n);
