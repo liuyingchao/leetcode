@@ -17,8 +17,7 @@ A solution set is:
 import java.util.*;
 
 public class Solution {
-	
-    public ArrayList<ArrayList<Integer>> combinationSum2(int[] candidates, int target) {
+	public ArrayList<ArrayList<Integer>> combinationSum2(int[] candidates, int target) {
     	Arrays.sort(candidates);
     	ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();    	
     	ArrayList<Integer> partial = new ArrayList<Integer>(); 
