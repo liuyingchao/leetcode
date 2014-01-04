@@ -1,7 +1,4 @@
-/* MY NOTE: the judge expects input [1,1], 1 to return [[1]], instead of [[1], [1]]. That means it's very inconsistent on what "duplicate"
- * means. On one hand, the candidates are not unique, on the other hand, those elements of the same values are treated differently. Quite odd requirement.
- * Otherwise, we can use ArrayList<ArrayList<Integer>> as the last parm of fillList without having to introduce a hashSet.
- * 
+/* 
  * Given a collection of candidate numbers (C) and a target number (T), find all unique combinations in C where the candidate numbers sums to T.
 
 Each number in C may only be used once in the combination.
@@ -23,36 +20,29 @@ public class Solution {
 	
     public ArrayList<ArrayList<Integer>> combinationSum2(int[] candidates, int target) {
     	Arrays.sort(candidates);
-    	boolean[] mask = new boolean[candidates.length];
-    	HashSet<ArrayList<Integer>> resultSet = new HashSet<ArrayList<Integer>>(); 
-    	
+    	ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();    	
     	ArrayList<Integer> partial = new ArrayList<Integer>(); 
-    	fillList(candidates, mask, target, 0, partial, resultSet);
-    	ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
-    	for (ArrayList<Integer> list : resultSet) {
-    		result.add(list);
-    	}
+    	fillList(candidates, target, 0, partial, result);    	
     	return result;
     }
     
-    private void fillList(int[] src, boolean[] mask, int target, int start, ArrayList<Integer> partial, HashSet<ArrayList<Integer>> resultSet) {
+    private void fillList(int[] src, int target, int start, ArrayList<Integer> partial, ArrayList<ArrayList<Integer>> result) {
     	if (target == 0) {
     		ArrayList<Integer> element =  new  ArrayList<Integer>();
     		for (Integer current : partial) {
     			element.add(current);
     		}
-    		resultSet.add(element);
+    		result.add(element);
     		return;
     	}
     	
     	for (int i = start; i < src.length && target >= src[i]; i++) {
-    		if (!mask[i]) {
-    			partial.add(src[i]);
-    			mask[i] = true;
-        		fillList(src, mask, target -  src[i], i, partial, resultSet);
-        		partial.remove(partial.size() - 1);
-        		mask[i] = false;
-    		}
+    		// if src[i] == src[i-1], by this point, we've found all the lists that start with src[i-1], so we can skip src[i]
+    		if (i > start && src[i] == src[i-1]) continue;
+    		partial.add(src[i]);
+    		// Notice the 3rd parm is i+1, that's how we avoid duplicate uses of the same candidate element
+    		fillList(src, target -  src[i], i+1, partial, result);
+    		partial.remove(partial.size() - 1);
     	}
     }
 }
