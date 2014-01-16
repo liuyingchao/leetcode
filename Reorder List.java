@@ -1,3 +1,81 @@
+/* My NOTES: for linkedList functions, after breaking big chunk of code into smaller functions, be aware that
+ * we need to use return value to indicate what's the desired output list's head. The input parm is passed by value,
+ * which means the old head still points to some old value in the middle of the list. That's the root cause of my initial bugs.
+ * */
+
+import java.util.*;
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public void reorderList(ListNode head) {
+    	ListNode backup = head;
+    	if (head != null && head.next != null) {
+    		// count
+    		int total = 0;
+            while (head != null) {
+            	head = head.next;
+            	total++;
+            }
+            // find tail
+            int half = (total+1)/2;
+            head = backup;
+            for (int i = 0; i < half - 1; i++) {
+            	head = head.next;
+            }            
+            ListNode tail = head;
+            // Break into 2 halves
+            ListNode secondHead = tail.next;
+            // Then reverse
+            secondHead = reverseList(secondHead);
+            tail.next = null;
+
+            // Merge
+            head = backup;
+            head = mergeLists(head, secondHead);
+            return;
+    	}
+    }
+    
+    private ListNode reverseList(ListNode head) {
+        ListNode dummy = new ListNode(0);
+        while (head != null) {
+        	ListNode temp = head.next;
+        	head.next = dummy.next;
+        	dummy.next = head;
+        	head = temp;
+        }
+    	
+        return dummy.next;
+    }
+    
+    private ListNode mergeLists(ListNode firstHead, ListNode secondHead) {
+    	ListNode backup = firstHead;
+    	ListNode node = secondHead;
+        ListNode firstNext, secondNext;
+        // Make sure we use the second list as the loop invariant, in case the first list is longer by one node.
+        while (node != null) {	
+        	firstNext = firstHead.next;
+        	secondNext = node.next;
+        	node.next= firstNext;
+        	firstHead.next = node;
+        	firstHead = firstNext;
+        	node = secondNext;
+        }
+        return backup;
+    }
+}
+
+
+
 import java.util.*;
 /**
  * Definition for singly-linked list.
