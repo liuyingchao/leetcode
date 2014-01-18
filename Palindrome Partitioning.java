@@ -13,6 +13,9 @@ public class Solution {
     {
         if(start==s.length()) 
         {
+            // The key is this line that constructs a search result by copying
+            // from the current subList. Then the recursion caller makes sure
+            // the last element is removed before moving forward
             list.add(new ArrayList<String> (subList) ); return ;
         }
         for(int i=start+1; i<=s.length(); i++)
