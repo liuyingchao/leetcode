@@ -1,5 +1,4 @@
 /**
- * Very verbose. Should be refactored.
  * 
  * Definition for an interval.
  * public class Interval {
@@ -9,6 +8,33 @@
  *     Interval(int s, int e) { start = s; end = e; }
  * }
  */
+ 
+ public class Solution {
+    public ArrayList<Interval> insert(ArrayList<Interval> intervals, Interval newInterval) {
+        ArrayList<Interval> result = new ArrayList<Interval>();
+        // Backup to avoid polluting the input "newInterval"
+        Interval copy = new Interval(newInterval.start, newInterval.end);
+        boolean inserted = false;
+        for (Interval interval : intervals) {
+        	if (inserted || interval.end < newInterval.start) {
+        		result.add(interval);
+        	} else if (copy.end < interval.start) {
+        		result.add(copy);
+        		result.add(interval);
+        		inserted = true;
+        	} else {
+        		copy.start = Math.min(interval.start, copy.start);
+        		copy.end = Math.max(interval.end, copy.end);
+        	}
+        }
+        if (!inserted) {
+        	result.add(copy);
+        }
+        return result;
+    }    
+}
+
+//  The vollowing version is ery verbose. Should be refactored.
 public class Solution {
     public ArrayList<Interval> insert(ArrayList<Interval> intervals, Interval newInterval) {
         ArrayList<Interval> result = new ArrayList<Interval>();
