@@ -19,20 +19,8 @@ public class Solution {
     public void reorderList(ListNode head) {
     	ListNode backup = head;
     	if (head != null && head.next != null) {
-    		// count
-    		int total = 0;
-            while (head != null) {
-            	head = head.next;
-            	total++;
-            }
-            // find tail
-            int half = (total+1)/2;
-            head = backup;
-            for (int i = 0; i < half - 1; i++) {
-            	head = head.next;
-            }            
-            ListNode tail = head;
-            // Break into 2 halves
+    		ListNode tail = findTail(head);
+    		// Break into 2 halves
             ListNode secondHead = tail.next;
             // Then reverse
             secondHead = reverseList(secondHead);
@@ -43,6 +31,22 @@ public class Solution {
             head = mergeLists(head, secondHead);
             return;
     	}
+    }
+    
+    private ListNode findTail(ListNode head) {
+    	ListNode backup = head;
+    	int total = 0;
+        while (head != null) {
+        	head = head.next;
+        	total++;
+        }
+        // find tail
+        int half = (total+1)/2;
+        head = backup;
+        for (int i = 0; i < half - 1; i++) {
+        	head = head.next;
+        }            
+        return head;
     }
     
     private ListNode reverseList(ListNode head) {
