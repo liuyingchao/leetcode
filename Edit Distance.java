@@ -7,6 +7,35 @@ a) Insert a character
 b) Delete a character
 c) Replace a character
  * */
+ 
+public class Solution {
+    public int minDistance(String word1, String word2) {
+    	int m = word1.length(), n= word2.length();
+    	int[][] table = new int[m+1][n+1];
+    	table[0][0] = 0;
+    	for (int i = 1; i <= m; i++) {
+    		table[i][0] = i;
+    	}
+    	
+    	for (int i = 1; i <= n; i++) {
+    		table[0][i] = i;
+    	}
+    
+    	for (int i = 1; i <= m; i++) {
+    		for (int j = 1; j <= n; j++) {
+    			// This solution avoids any potential of table[i-1][j-1] is greater than the other way. Though
+    			// math proof might prove that would be impossible, it's better to handle it in code 100%
+    			table[i][j] = Math.min(Math.min(table[i-1][j], table[i][j-1]), table[i-1][j-1]) + 1;
+    			if (word1.charAt(i-1) == word2.charAt(j-1)) {
+    				table[i][j] = Math.min(table[i-1][j-1], table[i][j]);
+    			}
+    		}
+    	}
+    	
+    	return table[m][n];
+    }
+}
+
 public class Solution {
     public int minDistance(String word1, String word2) {
     	int m = word1.length(), n= word2.length();
