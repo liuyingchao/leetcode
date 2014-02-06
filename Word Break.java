@@ -6,6 +6,9 @@ s = "leetcode",
 dict = ["leet", "code"].
 
 Return true because "leetcode" can be segmented as "leet code".
+
+Solution: memorize what we have known so far, so that we can reach "true" conclusion quickly for a valid spot.
+In the worst case, this is just an O(n^2) solution without much performance saving
 */
 import java.util.Set;
 
@@ -17,6 +20,8 @@ public class Solution {
         canBreak[0] = true;
         
         for (int i = 1; i <= N; i++) {
+            // Here I rely on the default initialization of boolean[i] == false in Java.
+            // Otherwise it should be explicitly set to false before running the inner loop
         	for (int j = i - 1; j >= 0; j--) {
         		if (canBreak[j] && dict.contains(s.substring(j, i))) {
         			canBreak[i] = true;
