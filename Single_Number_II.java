@@ -2,23 +2,31 @@
 
 Note:
 Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?
+
+Solution: notice for the bit AND operator, we need a paranthethis. Otherwise, Java complains about the order
+of operators
  * */
 
 public class Solution {
-    public static int singleNumber(int[] A) {  
-        int[] countsPerBit = new int[32];  
-        int result = 0;  
-        for(int i=0; i<32; i++){  
-            for(int j=0; j<A.length; j++){  
-                if(((A[j] >> i) & 1) == 1){  
-                    countsPerBit[i] = (countsPerBit[i] + 1) % 3;  
-                }  
-            }  
-            result |= (countsPerBit[i] << i);  
-        }  
-        return result;  
-    }  
+    public int singleNumber(int[] A) {
+    	int res = 0;
+    	int n = A.length;
+    	for (int i = 0; i < 32; i++) {
+    		int count = 0;
+    		int bit = 1 << i;
+    		for (int j = 0; j < n; j++) {
+    			if ((bit & A[j]) != 0) {
+    				count++;
+    			}
+    		}
+    		if (count % 3 != 0) {
+    			res |= bit;
+    		}
+    	}
+    	return res;
+    }
 }
+
 
 import java.util.HashMap;
 
