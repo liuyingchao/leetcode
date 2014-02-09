@@ -11,6 +11,12 @@ Return
     ["aa","b"],
     ["a","a","b"]
   ]
+
+Solution: DFS + backtrack
+starting from the index "start", and try all the possible indices behind "start"
+to see whether the substring is a palindrome. After finishing one position, backtrack to 
+exam the next partition position.
+
  * */
  
 public class Solution {
@@ -26,6 +32,7 @@ public class Solution {
     
     void part(String s, int start, ArrayList<String> subList, ArrayList<ArrayList<String>> list)
     {
+        // It's a pattern to keep scanning the input array until the recursion terminates with start == s.length()      
         if(start==s.length()) 
         {
             // The key is this line that constructs a search result by copying
