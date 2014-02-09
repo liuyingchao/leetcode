@@ -8,7 +8,9 @@ The longest consecutive elements sequence is [1, 2, 3, 4]. Return its length: 4.
 Your algorithm should run in O(n) complexity.
 
 Solution: use avaialable dataSet to track what numbers are in the array, then scan for the second
-time by using a visited hashSet to assist "discovering" from a new number to both sides.
+time by using a visited hashSet to assist "discovering" from a new number to both sides. By using
+hashSet for both scans, we can simply ignore the scenario of having duplicate numbers. They are
+automatically handled.
 
  * */
 import java.util.*;
