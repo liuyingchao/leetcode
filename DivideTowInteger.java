@@ -5,10 +5,11 @@ Divide two integers without using multiplication, division and mod operator.
 // A cleaner solution using long to save the hassel of dealing with overflow/underflow
 public class Solution {
     public int divide(int dividend, int divisor) {
-    	boolean isNeg = dividend > 0 && divisor < 0 ||
-    			dividend < 0 && divisor > 0;
-    	// boolean isNeg = (dividend < 0);
-    	// if (divisor < 0) isNeg = !isNeg;
+    	//boolean isNeg = dividend > 0 && divisor < 0 ||
+    	//		dividend < 0 && divisor > 0;
+    	// The following is a more elegant logic
+    	boolean isNeg = (dividend < 0);
+    	if (divisor < 0) isNeg = !isNeg;
     	long dividendL = Math.abs((long) dividend);
     	long divisorL = Math.abs((long) divisor);
     	
