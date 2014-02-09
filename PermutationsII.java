@@ -1,3 +1,7 @@
+/* Adding another explanation in C++:
+http://leetcodesolution.blogspot.com/2013/09/permutations-ii.html
+*/
+
 /* Solution II; with hash. NOT elegant
 
 Very similar to original permutations without any duplicate elements. It just utilizes hash to avoid duplicate
