@@ -73,6 +73,71 @@ public class Solution {
     }
 }
 
+/*
+top-down DP, still time out on the extremely long inputs, which the greedy + backtrack solution
+can stop very quickly
+*/
+public class Solution {
+	private Boolean[][] mem;
+    public boolean isMatch(String s, String p) {
+        if (s == null || s.length() == 0) {
+            return isFullStar(p);
+        }
+        if (p == null || p.length() == 0) {
+            return false;
+        }
+        
+        int m = s.length(), n = p.length();
+        mem = new Boolean[m+1][n+1];
+        for (int i = 0; i <= m; i++) {
+        	for (int j = 0; j <= n; j++) {
+        		mem[i][j] = null;
+        	}
+        }
+        
+        mem[0][0] = true;
+        for (int i = 1; i <= n; i++) {
+            mem[0][i] = mem[0][i-1] && p.charAt(i-1) == '*';
+        }
+        for (int i = 1; i <= m; i++) {
+            mem[i][0] = false;
+        }
+        
+        return getMatch(s, p, m, n);
+    }
+    
+    private Boolean getMatch(String s, String p, int i, int j) {
+    	if (mem[i][j] != null) {
+    		return mem[i][j];
+    	}
+    	
+    	char currentP = p.charAt(j-1);
+        switch (currentP) {
+        case '*':
+            mem[i][j] = getMatch(s, p, i-1, j-1) || getMatch(s, p, i-1, j) || getMatch(s, p, i, j-1);
+            break;
+        case '?':
+            mem[i][j] = getMatch(s, p, i-1, j-1);
+            break;
+        default:
+            mem[i][j] = s.charAt(i-1) == currentP && getMatch(s, p, i-1, j-1); 
+            break;
+        }
+        return mem[i][j];
+    }
+    
+    private boolean isFullStar(String s) {
+        if (s == null || s.length() == 0) return true;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) != '*') {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+
 /* The following DP solution times out on extremely long inputs, as it builds a lot of redundant table cells
 */
 public class Solution {
