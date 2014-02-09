@@ -50,3 +50,30 @@ public class Solution {
         return true;
     }
 }
+
+/* The following is copied C++ code
+*/
+class Solution {
+public:
+    bool isMatch(const char *s, const char *p) {
+        const char *sBackup = NULL, *pBackup = NULL;
+        while (*s != '\0') {
+            if (*p == '?' || *s == *p) { // At this point we may have skipped consecutive '*'. The key is at this point, *s needs to match *p
+                s++;
+                p++;
+            } else if (*p == '*') {
+                while (*p == '*') p++;
+                if (*p == '\0') return true;
+                // Jump over the consecutive '*' in p so that we can match the next matching character in s with *p
+                sBackup = s;
+                pBackup = p;
+            } else {
+                if (!sBackup) return false;
+                s = ++sBackup;
+                p = pBackup;
+            }
+        }
+        while (*p == '*') p++;
+        return *s == '\0' && *p == '\0';
+    }
+};
