@@ -1,3 +1,7 @@
+/*
+Divide Two Integers Total Accepted: 5444 Total Submissions: 35355 My Submissions
+Divide two integers without using multiplication, division and mod operator.
+*/
 // A cleaner solution using long to save the hassel of dealing with overflow/underflow
 public class Solution {
     public int divide(int dividend, int divisor) {
