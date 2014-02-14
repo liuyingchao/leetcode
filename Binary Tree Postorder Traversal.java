@@ -35,7 +35,7 @@ public class Solution {
     		TreeNode prev = null;
     		while (!stack.isEmpty()) {
     			TreeNode node = stack.peek();
-    			if (prev == node.left && node.left != null) {
+    			if (prev == node.left && node.left != null) { // We just visited the left child==>exam the right child
     			    if (node.right != null) {
     				    stack.push(node.right);
     				    prev = node.right;
@@ -43,17 +43,17 @@ public class Solution {
     			        list.add(node.val);
     			        prev = stack.pop();
     			    }
-    			} else if (prev == node.right && node.right != null) {
+    			} else if (prev == node.right && node.right != null) { // We just visited the right child ==> visit the current node
 			        list.add(node.val);
 			        prev = stack.pop();
-    			} else {
-    			    if (node.left != null) {
+    			} else { // We just peek the current node for the first time before visiting either child
+    			    if (node.left != null) { 	// Push the left child
     			        stack.push(node.left);
     			        prev = node.left;
-    			    } else if (node.right != null) {
+    			    } else if (node.right != null) { // Left child is null==> push the right child
     			        stack.push(node.right);
     				    prev = node.right;
-    			    } else {
+    			    } else {  	// Both left and right are null==> visit the current node and pop. Expect to visit the parent in the next step
     			        list.add(node.val);
     			        prev = stack.pop();
     			    }
