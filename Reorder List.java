@@ -19,7 +19,7 @@ import java.util.*;
  */
 public class Solution {
     public void reorderList(ListNode head) {
-    	ListNode backup = head;
+        // No need to back up for head. The last merge handles the return value correctly
     	if (head != null && head.next != null) {
     		ListNode tail = findTail(head);
     		// Break into 2 halves
@@ -29,7 +29,6 @@ public class Solution {
             tail.next = null;
 
             // Merge
-            head = backup;
             head = mergeLists(head, secondHead);
             return;
     	}
