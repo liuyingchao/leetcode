@@ -15,11 +15,11 @@ import java.util.HashMap;
 
 public class LRUCache {
 
-	public HashMap<Integer, LRUCache.DoubleLinkedListNode> table = new HashMap<Integer, LRUCache.DoubleLinkedListNode>();
-	public DoubleLinkedListNode head;
-	public DoubleLinkedListNode end;
-	public int capacity;
-	public int len;
+	private HashMap<Integer, LRUCache.DoubleLinkedListNode> table = new HashMap<Integer, LRUCache.DoubleLinkedListNode>();
+	private DoubleLinkedListNode head;
+	private DoubleLinkedListNode end;
+	private int capacity;
+	private int len;
 
 	public LRUCache(int capacity) {
 		this.capacity = capacity;
@@ -35,7 +35,7 @@ public class LRUCache {
 			return -1;
 		}
 	}
-	
+
 	public void removeNode(DoubleLinkedListNode node){
 		DoubleLinkedListNode cur = node;
 		DoubleLinkedListNode pre = cur.pre;
@@ -51,7 +51,7 @@ public class LRUCache {
         	end = pre;
         }
 	}
-	
+
 	public void setHead(DoubleLinkedListNode node){
 		node.post = head;
 		node.pre = null;
