@@ -1,4 +1,10 @@
 /**
+ * Given an array where elements are sorted in ascending order, convert it to a height balanced BST.
+ * 
+ * Difficulty: easy
+ * 
+ * Solution: recursion plus "the reverse" of binary search
+ * 
  * Definition for binary tree
  * public class TreeNode {
  *     int val;
