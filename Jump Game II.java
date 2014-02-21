@@ -24,11 +24,9 @@ public class Solution {
         int n = A.length;
         int[] steps = new int[n];
         steps[0] = 0;
-        for (int i = 1; i < n; i++) {
-            steps[i] = -1;
-        }
         
         for (int i = 1; i < n; i++) {
+            steps[i] = -1;
             int min = Integer.MAX_VALUE;
             for (int j = 0; j < i; j++) {
                 if (steps[j] >= 0 && A[j] >= i-j) {
