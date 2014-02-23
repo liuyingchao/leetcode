@@ -6,6 +6,9 @@ Return a deep copy of the list.
 Difficulty: Hard
 
 Solution: Hash!
+Looking into the solution, HashMap essentially provides an additional pointer that we cannot add into the original objects. This can be
+a useful trick to deal with many problems facing the constraint of not changing the original data.
+
 It's easy to create the list with next pointers in place. The trick is: during the creation process, we create a hashMap from the original
 node to the copied node. This way we can guarantee during our second scan, we can trust the random pointer and consume its hash value 
 to get exactly the node we are looking for, and we don't get bothered by backward pointers.
