@@ -6,8 +6,57 @@ both odd and even lengths; we don't have to start with substring of 1 or 2 all t
 known max--this is key to avoid timeout for extremely long strings; this implies the search should start from the middle
 instead of from one end--this way we can better utilize the known max.
 
-TBD: refactor to simplify the duplicate loop bodies.
+Update: the original isPalindrome() function is horrible, because as we "grow" from the middle, we only need to
+compare a pair of char each time, instead of comparing the whole substring. So we don't need to start from the middle,
+and we don't need to use the current "max" to affect step. More importantly, we don't need duplicate code to loop
+to both directions.
  * */
+ public class Solution {
+    public String longestPalindrome(String s) {
+        int n = s.length();
+        int max = 1;
+        String candidate = s.substring(0, 1);        
+        
+        int mid = (n-1)/2;
+        int start, end;
+        for (int i = 0; i < n; i++) {
+        	int step = 1;
+        	// Palindrome of odd length
+        	start = i-step;
+        	end = i+step;
+        	while (start >= 0 && end < n && s.charAt(start) == s.charAt(end)) {
+        		int len = 1 + step * 2;
+        		if (len > max) {
+        			max = len;
+        			candidate = s.substring(start, end + 1);
+        		}
+        		step++;
+        		start = i - step;
+        		end = i + step;        				
+        	}
+
+        	// Palindrome of even length
+        	step = 0;
+        	start = i;
+        	end = i + 1;
+        	while (start >= 0 && end < n && s.charAt(start) == s.charAt(end)) {
+        		int len = (step+1) * 2;
+        		if (len > max) {
+        			max = len;
+        			candidate = s.substring(start, end + 1);
+        		}
+        		step++;
+        		start = i - step;
+        		end = i + step + 1;
+        	}
+        }
+
+        return candidate;
+    }    
+}
+ 
+ 
+ // V2
  public class Solution {
     public String longestPalindrome(String s) {
         int n = s.length();
