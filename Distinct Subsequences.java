@@ -8,8 +8,8 @@ S = "rabbbit", T = "rabbit"
 
 Return 3.
 
-Solution: I'm not getting the DP relationship
-Copied from: http://www.programcreek.com/2013/01/leetcode-distinct-subsequences-total-java/
+Solution: DP. The idea is conditionally determine whether the char at S[i-1] and T[j-1] can be used
+directly or not.
 
  * */
 public class Solution {
@@ -17,14 +17,16 @@ public class Solution {
         int[][] table = new int[S.length() + 1][T.length() + 1];
  
     	for (int i = 0; i < S.length(); i++)
-    		table[i][0] = 1;
+    		table[i][0] = 1;    // This initial condition is important, meaning empty T returns 1
      
     	for (int i = 1; i <= S.length(); i++) {
     		for (int j = 1; j <= T.length(); j++) {
     			if (S.charAt(i - 1) == T.charAt(j - 1)) {
-    				table[i][j] += table[i - 1][j] + table[i - 1][j - 1];
+    			    // Exclude the last char of S, or include it
+    				table[i][j] = table[i - 1][j] + table[i - 1][j - 1];
     			} else {
-    				table[i][j] += table[i - 1][j];
+    			    // Has to skip the last char of S
+    				table[i][j] = table[i - 1][j];
     			}
     		}
     	}
