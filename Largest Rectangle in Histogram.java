@@ -13,7 +13,7 @@ return 10
 
 Difficulty: Hard
 
-Solution: Utilize stack
+Solution: Utilize stack, and calculate the area by limiting it with leftIndex(previous Index) and rightIndex(current index)
 
  * */
 public class Solution {
@@ -30,10 +30,10 @@ public class Solution {
         			int top = (Integer) s.pop();
         			int leftIndex;
         			if (s.isEmpty()) {
-        				max = Math.max(max, i * top);
+        				max = Math.max(max, i * height[top]);
         			} else {
         				leftIndex = (Integer) s.peek();
-        				max = Math.max(max, (i-leftIndex-1) * top);
+        				max = Math.max(max, (i-leftIndex-1) * height[top]);
         			}        			
         		}
         		s.push(i);
@@ -43,10 +43,10 @@ public class Solution {
         while (!s.isEmpty()) {
         	int top = (Integer) s.pop();
         	if (s.isEmpty()) {
-				max = Math.max(max, n * top);
+				max = Math.max(max, n * height[top]);
 			} else {
 				int leftIndex = (Integer) s.peek();
-				max = Math.max(max, (n-leftIndex-1) * top);
+				max = Math.max(max, (n-leftIndex-1) * height[top]);
 			}
         }
         
