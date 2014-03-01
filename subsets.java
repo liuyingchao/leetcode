@@ -17,7 +17,32 @@ If S = [1,2,3], a solution is:
   [1,2],
   []
 ]
- * */
+ Solution: adding each new int element into the existing list. Be careful with how to write the code cleanly
+
+*/
+public class Solution {
+    public ArrayList<ArrayList<Integer>> subsets(int[] s) {
+        ArrayList<ArrayList<Integer>> ret = new ArrayList<ArrayList<Integer>>();
+        ret.add(new ArrayList<Integer>());
+        if (s == null || s.length == 0) {
+        	return ret;
+        }
+        // Must sort first to automatically get each ArrayList in ascending order
+        Arrays.sort(s);
+        int N = s.length;
+        for (int i = 0; i < N; i++) {
+        	ArrayList<ArrayList<Integer>> newList = new ArrayList<ArrayList<Integer>>();
+        	for (ArrayList<Integer> val : ret) {
+        		ArrayList<Integer> current = new ArrayList<Integer>(val);
+        		current.add(s[i]);
+        		newList.add(current);
+        	}        	
+        	ret.addAll(newList);
+        }
+        return ret;
+    }
+}
+
 
 // Refactor to get rid of unnecessary helper function
 public class Solution {
