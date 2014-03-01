@@ -1,4 +1,49 @@
 /*
+Given a collection of numbers, return all possible permutations.
+
+For example,
+[1,2,3] have the following permutations:
+[1,2,3], [1,3,2], [2,1,3], [2,3,1], [3,1,2], and [3,2,1].
+
+Difficulty: Hard
+
+Solution: the idea is to grow candidate by trying each possible input number. We keep trackof that by the used[] array, 
+and store the growing candidate in "output"
+*/
+public class Solution {
+    private int n;
+    private ArrayList<ArrayList<Integer>> res;
+    public ArrayList<ArrayList<Integer>> permute(int[] num) {
+        n = num.length;
+        res = new ArrayList<ArrayList<Integer>>();
+        int[] output = new int[n];
+        boolean[] used = new boolean[n];
+        doPermute(num, output, used, 0);
+        return res;
+    }
+    
+    private void doPermute(int[] num, int[] output, boolean[] used, int level) {
+        if (level == n) {
+            ArrayList<Integer> current = new ArrayList<Integer>();
+            for (int i = 0; i < n; i++) {
+                current.add(output[i]);
+            }
+            res.add(current);
+        }
+        for (int i = 0; i < n; i++) {
+            if (used[i]) {
+                continue;
+            }
+            
+            output[level] = num[i];
+            used[i] = true;
+            doPermute(num, output, used, level + 1);
+            used[i] = false;
+        }
+    }
+}
+
+/*
  * Given a collection of numbers, return all possible permutations.
 
 For example,
