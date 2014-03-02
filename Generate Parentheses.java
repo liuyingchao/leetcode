@@ -1,6 +1,7 @@
 /*
  Problem:    Generate Parentheses
  Review this. The solution comes from aother coder!!!
+ It's also the same as Cracking Coding Interview Problem 9.6
  
  Notes:
  Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
