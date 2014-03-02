@@ -28,7 +28,7 @@ public class Solution {
     	int mid;
     	while (start < end) {
     		mid = start + (end - start)/2;
-    		if (A[mid] > A[end]) {
+    		if (A[mid] > A[end]) {  // Very important to compare with A[end] instead  of A[start]
     			start = mid + 1;
     		} else {
     			end = mid;
@@ -39,7 +39,7 @@ public class Solution {
     
     private int binarySearch(int[] A, int target, int start, int end) {
     	int mid;
-    	while (start <= end) {
+    	while (start <= end) { // Be careful with "=", because that's what ensures correctness when there is only one element in the subarray
     		mid = start + (end - start)/2;
     		if (A[mid] == target) {
     			return mid;
