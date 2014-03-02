@@ -7,6 +7,39 @@ You are given a target value to search. If found in the array return its index, 
 
 You may assume no duplicate exists in the array.
  */
+
+// The solution without having to find the min value
+public class Solution {
+    public int search(int[] A, int target) {
+        int N = A.length;
+        return binarySearch(A, target, 0, N - 1);
+    }
+    
+    private int binarySearch(int[] A, int target, int start, int end) {
+        while (start <= end) {
+            int mid = start + (end - start)/2;
+            if (A[mid] == target) {
+                return mid;
+            } else if (A[mid] >= A[start]) {
+                if (A[mid] > target && A[start] <= target) {
+                    end = mid - 1;
+                } else {
+                    start = mid + 1;
+                }
+            } else { // A[mid] < A[start]
+                if (A[mid] < target && A[end] >= target) {
+                    start = mid + 1;
+                } else {
+                    end = mid - 1;
+                }
+            }
+        }
+        return -1;
+    }
+}
+
+
+// The 2 step solution to first find the min
 public class Solution {
     public int search(int[] A, int target) {
         int minIndex = findMinIndex(A);
