@@ -12,6 +12,10 @@ Copied from http://blog.sina.com.cn/s/blog_b9285de20101gy6n.html
 string, 同时s1右边substring和s2左边的substring也为scramble
 string，则为true
 
+Another solution from:
+http://www.cnblogs.com/TenosDoIt/p/3452004.html
+The DP solution is essentially the same as the following code. The recursive solution is also listed.
+
 */
 public class Solution {
     public boolean isScramble(String s1, String s2)
@@ -21,7 +25,7 @@ public class Solution {
         
         for(int i=n-1; i>=0; i--)
             for(int j=n-1; j>=0; j--)
-                for(int k=1; k<=n-Math.max(i,j);k++)
+                for(int k=1; k<=n-Math.max(i,j);k++)    // k is the length of the substring we are looking at
                 {
                     if(s1.substring(i,i+k).equals(s2.substring(j,j+k)))
                         dp[i][j][k]=true;
