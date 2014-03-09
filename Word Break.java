@@ -25,6 +25,7 @@ public class Solution {
         	for (int j = i - 1; j >= 0; j--) {
         		if (canBreak[j] && dict.contains(s.substring(j, i))) {
         			canBreak[i] = true;
+        			break;  // For inner loop. No need to keep looping all the way to j == 0
         		}
         	}
         }
