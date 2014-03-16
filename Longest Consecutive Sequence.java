@@ -13,7 +13,51 @@ hashSet for both scans, we can simply ignore the scenario of having duplicate nu
 automatically handled.
 
  * */
-import java.util.*;
+public class Solution {
+    public int longestConsecutive(int[] num) {
+        if (num == null || num.length == 0) return 0;
+        int N = num.length;
+        
+        // Scan to mark what data is available
+        HashSet<Integer> dataSet = new HashSet<Integer>();
+        for (int i = 0; i < N; i++) {
+        	dataSet.add(num[i]);
+        }
+        
+        // Store what data has been visited. This is the key to keep the amortized cost O(n)
+        HashSet<Integer> visitedSet = new HashSet<Integer>();
+        int maxLength = 0;
+        // We can iterate the hashSet values directly without scanning the original array.
+        // This may improve the performance, but there is no complexity improvement compared with the older version
+        for (int n : dataSet) {
+        	if (!visitedSet.contains(n)) {
+        		visitedSet.add(n);
+        		
+        		int length = 1;
+        		int current = n + 1;
+        		while (dataSet.contains(current)) {
+        			visitedSet.add(current);
+        			current++;
+        			length++;
+        		}
+        		current = n - 1;
+        		while (dataSet.contains(current)) {
+        			visitedSet.add(current);
+        			current--;
+        			length++;
+        		}
+        		
+        		if (length > maxLength) {
+        			maxLength = length;
+        		}
+        	}
+        }
+        
+        return maxLength;
+    }
+}
+
+// Older version
 public class Solution {
     public int longestConsecutive(int[] num) {
         if (num == null || num.length == 0) return 0;
