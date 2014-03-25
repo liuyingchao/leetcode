@@ -15,6 +15,33 @@ Given 1->1->1->2->3, return 2->3.
  *     }
  * }
  */
+ 
+ public class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+        if (head == null) return null;
+        ListNode dummy = new ListNode(Integer.MAX_VALUE);
+        ListNode prev = dummy;
+        prev.next = head;
+        ListNode current = head;
+        ListNode next;
+        while (current != null) {
+            next = current.next;
+            if (next != null) {
+                if (current.val == next.val) {
+                    while (next != null && current.val == next.val) {
+                        next = next.next;
+                    }
+                    prev.next = next;
+                } else {
+                    prev = current;
+                }
+            }
+            current = next;
+        }
+        return dummy.next;
+    }
+}
+ 
 public class Solution {
     public ListNode deleteDuplicates(ListNode head) {
         ListNode dummy = new ListNode(0);
