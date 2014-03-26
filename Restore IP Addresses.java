@@ -8,6 +8,67 @@ return ["255.255.11.135", "255.255.111.35"]. (Order does not matter)
 */
 public class Solution {
 
+    public ArrayList<String> restoreIpAddresses(String s) {
+    	ArrayList<String> list = new ArrayList<String>();
+    	// We can tweak if condition to cut down to 1 return, but I really don't like the
+    	// readability of (!(||...))
+    	if (s == null || s.length() < 4 || s.length() > 16) {
+    		return list;
+    	}
+    	
+    	String[] candidate = new String[4];
+        findPartial(s, 0, candidate, list);
+        return list;
+    }
+    
+    private void findPartial(String s, int level, String[] candidate, List<String> list) {
+    	// Avoid overflow, and we need to probe at most 3 digits
+    	int maxFieldSize = Math.min(3, s.length());
+    	for (int i = 1; i <= maxFieldSize; i++) {
+    		candidate[level] = s.substring(0, i);
+    		if (isValidField(candidate[level])) {
+    			if (level == 3) {
+    				if (i == s.length()) {
+        				// Build result
+        				buildResult(candidate, list);    					
+    				} // else s has unused digits ==> not valid, just move on
+    			} else {
+    			    // No need to check level < 3, becuase we stop at level == 3.
+    				findPartial(s.substring(i), level+1, candidate, list);
+    			}
+    		}
+    	}
+    }
+    
+    private void buildResult(String[] candidate, List<String> list) {
+    	StringBuilder sb = new StringBuilder();
+    	for (int i = 0; i < 4; i++) {
+    	    sb.append(candidate[i]).append(".");
+    	}
+    	sb.deleteCharAt(sb.length() - 1);
+    	list.add(sb.toString());
+    }
+    
+    // Numbers of 2 or 3 digits cannot start with 0
+    private boolean isValidField(String s) {
+    	int val;
+    	switch (s.length()) {
+    		case 1:
+    			return true;
+    		case 2:
+    			val = Integer.parseInt(s);
+    	    	return (val >= 10);
+    		case 3:
+    			val = Integer.parseInt(s);
+    	    	return (val < 256 && val >= 100);
+    		default:
+    			return false;    		
+    	}
+    }
+}
+
+public class Solution {
+
 	private ArrayList<String> values; 
     public ArrayList<String> restoreIpAddresses(String s) {
     	values = new ArrayList<String>();
