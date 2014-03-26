@@ -34,6 +34,7 @@ public class Solution {
         				buildResult(candidate);    					
     				} // else s has unused digits ==> not valid, just move on
     			} else if (level < 3) {
+    				// This "if" clause is UNnecessary, becuase we stop at level == 3. Adding it make the code a bit clearer
     				findPartial(s.substring(i), level+1, candidate);
     			}
     		}
