@@ -23,11 +23,8 @@ Mark the result of BFS with temp char 'T', then it's trivial to flip 'O' and res
 
 public class Solution {
     private int m, n;
-    Queue<Integer> queue;
     public void solve(char[][] board) {
         if (board == null || board.length == 0 || board[0] == null || board[0].length == 0) return;
-        
-        queue = new LinkedList<Integer>();
         m = board.length;
         n = board[0].length;
         for (int i = 0; i < m; i++) {
@@ -51,19 +48,20 @@ public class Solution {
     }
     
     private void bfs(char[][] board, int x, int y) {
-        check(board, x, y);
+        Queue<Integer> queue = new LinkedList<Integer>();
+        check(board, x, y, queue);
         while (!queue.isEmpty()) {
             int num = queue.poll();
             x = num / n;
             y = num % n;
-            check(board, x + 1, y);
-            check(board, x - 1, y);
-            check(board, x, y + 1);
-            check(board, x, y - 1);
+            check(board, x + 1, y, queue);
+            check(board, x - 1, y, queue);
+            check(board, x, y + 1, queue);
+            check(board, x, y - 1, queue);
         }
     }
     
-    private void check(char[][] board, int x, int y) {
+    private void check(char[][] board, int x, int y, Queue<Integer> queue) {
         if (x < 0 || x >= m || y < 0 || y >= n || board[x][y] != 'O') return;
         queue.add(x*n + y);
         board[x][y] = 'T';
