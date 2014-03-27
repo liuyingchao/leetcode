@@ -30,10 +30,8 @@ public class Solution {
     	Comparator<ListNode> comparator =  new MyComparator();
     	PriorityQueue<ListNode> heap = new PriorityQueue<ListNode>(K, comparator);
     	ListNode dummy = new ListNode(0);
-    	for (int i = 0; i < K; i++) {
-    		if (lists.get(i) != null) {
-        		heap.add(lists.get(i));	
-    		}
+    	for (ListNode list : lists) {
+    	    if (list != null) heap.add(list);
     	}
     	
     	ListNode current = dummy;
