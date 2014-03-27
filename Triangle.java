@@ -21,6 +21,31 @@ that's not a concern with O(n^2) space usage.
 */
 public class Solution {
     public int minimumTotal(ArrayList<ArrayList<Integer>> triangle) {
+        if (triangle == null || triangle.isEmpty()) return Integer.MIN_VALUE;
+        int n = triangle.size();
+        int[] prev = new int[n];
+        int[] current = new int[n];
+        prev[0] = triangle.get(0).get(0);
+        for (int i = 1; i < n; i++) {
+            ArrayList<Integer> list = triangle.get(i);
+            current[0] = prev[0] + list.get(0);
+            for (int j = 1; j < i; j++) {
+                current[j] = list.get(j) + Math.min(prev[j-1], prev[j]);
+            }
+            current[i] = list.get(i) + prev[i-1];
+            prev = current;
+            current = new int[n]; // This doesn't really incure more than 2n space, because when we alias prev, runtime should know to garbage collect if necessary.
+        }
+        int min = Integer.MAX_VALUE;
+        for (int val: prev) {
+            min = Math.min(val, min);
+        }
+        return min;
+    }
+}
+
+public class Solution {
+    public int minimumTotal(ArrayList<ArrayList<Integer>> triangle) {
         ArrayList<Integer> prev = new ArrayList<Integer>();
         int n = triangle.size();
         prev.add(triangle.get(0).get(0));
