@@ -70,7 +70,50 @@ public class Solution {
     }
 }
 
+/*
+IMPORTANT:
+The following code works theoretically, and doesn't maintain an explicit Queue. However,
+it runs into stack overflow in practice, because it depends on recursion to go deep on 
+big connected regions instead of relying on BFS' checking over queue elements iteratively.
 
+public class Solution {
+    private int m, n;
+    public void solve(char[][] board) {
+        if (board == null || board.length == 0 || board[0] == null || board[0].length == 0) return;
+        m = board.length;
+        n = board[0].length;
+        for (int i = 0; i < m; i++) {
+            bfs(board, i, 0);
+            bfs(board, i, n-1);
+        }
+        for (int i = 1; i < n-1; i++) {
+            bfs(board, 0, i);
+            bfs(board, m-1, i);
+        }
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (board[i][j] == 'O') board[i][j] = 'X';
+                if (board[i][j] == 'T') board[i][j] = 'O';
+            }
+        }
+    }
+    
+    private boolean isValid(char[][] board, int row, int col) {
+        return row >= 0 && row < m && col >= 0 && col < n;
+    }
+    
+    private void bfs(char[][] board, int row, int col) {
+        if (isValid(board, row, col) && board[row][col] == 'O') {
+            board[row][col] = 'T';
+            bfs(board, row-1, col);
+            bfs(board, row+1, col);
+            bfs(board, row, col-1);
+            bfs(board, row, col+1);
+        }
+    }
+}
+
+*/
 // BFS--copied from https://github.com/guolinaileen/abc/blob/master/Surrounded%20Regions_BFS.java
 public class Solution {
     Queue<Integer> queue=new LinkedList<Integer>();
