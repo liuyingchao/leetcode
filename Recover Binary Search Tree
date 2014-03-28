@@ -1,0 +1,57 @@
+/**
+Two elements of a binary search tree (BST) are swapped by mistake.
+
+Recover the tree without changing its structure.
+
+Note:
+A solution using O(n) space is pretty straight forward. Could you devise a constant space solution?
+
+Difficulty: Medium
+Solution: In-order traversal, and notice 2 possible scenarios of (a) 2 adjacent nodes are out of order;
+and (b) 2 "separate" nodes are out of order. By "separate", we mean 2 nodes are not back to back in the
+inorder traversal. 
+2 keys to the solution: (1) prev should be a TreeNode instead of just MIN_VALUE like many BST traversal
+problems; (2) c3 is the key to determine whether we run into the second scenario or not.
+We use done/separate to terminate the traversal when possible, and checking whether c3 == null has similar effect.
+ */
+public class Solution {
+    private TreeNode c1, c2, c3, prev;
+    public void recoverTree(TreeNode root) {
+        c1 = c2 = c3 = null;
+        prev = new TreeNode(Integer.MIN_VALUE);
+        boolean separate = process(root);
+        if (separate) {
+            swap(c1, c3);
+        } else {
+            swap(c1, c2);
+        }
+    }
+    
+    private boolean process(TreeNode root) {
+        boolean done = false;
+        if (root.left != null) {
+            done = process(root.left);
+        }
+        if (done) return true;
+        if (root.val < prev.val) {
+            if (c1 == null) {
+                c1 = prev;
+                c2 = root;
+            } else {
+                c3 = root;
+                return true;
+            }
+        }
+        prev = root;
+        if (root.right != null) {
+            done = process(root.right);
+        }
+        return done;
+    }
+    
+    private void swap(TreeNode t1, TreeNode t2) {
+        int temp = t1.val;
+        t1.val = t2.val;
+        t2.val = temp;
+    }
+}
