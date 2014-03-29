@@ -71,12 +71,8 @@ public class Solution {
             	// We need to insert into i+1 positions to generate new permutation.
                 for (int j = 0; j <= i; j++) {
                     current.add(j, num[i]);
-                    // Ugly way to clone. Java ArrayList clone() method seems to return total garbage.
-                    ArrayList<Integer> newResult = new ArrayList<Integer>();
-                    for (Integer currentVal : current) {
-                        newResult.add(currentVal);
-                    }
-                    res.add(newResult);
+                    ArrayList<Integer> sublist = new ArrayList<Integer>(current);
+                    res.add(sublist);
                     current.remove(j);
                 }
             }
@@ -84,3 +80,4 @@ public class Solution {
         return res;
     }
 }
+  
