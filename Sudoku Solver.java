@@ -6,7 +6,7 @@ Empty cells are indicated by the character '.'.
 You may assume that there will be only one unique solution.
 
 Difficulty: Hard
-Solution: Straight DFS, even though I'm using an arrayList, which appears like BFS.
+Solution: Straight DFS and backtracking, even though I'm using an arrayList, which appears like BFS.
 Many online solutions validate against the board on the fly, while I build 3 Lists of
 HashSet, which requires certain code, but performes better.
 
