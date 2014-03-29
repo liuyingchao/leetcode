@@ -31,6 +31,27 @@ public class Solution {
         Arrays.sort(s);
         int N = s.length;
         for (int i = 0; i < N; i++) {
+            int size = ret.size();
+        	for (int j = 0; j < size; j++) {
+        		ArrayList<Integer> sublist = new ArrayList<Integer>(ret.get(j));
+        		sublist.add(s[i]);
+        		ret.add(sublist);
+        	}        	
+        }
+        return ret;
+    }
+}
+public class Solution {
+    public ArrayList<ArrayList<Integer>> subsets(int[] s) {
+        ArrayList<ArrayList<Integer>> ret = new ArrayList<ArrayList<Integer>>();
+        ret.add(new ArrayList<Integer>());
+        if (s == null || s.length == 0) {
+        	return ret;
+        }
+        // Must sort first to automatically get each ArrayList in ascending order
+        Arrays.sort(s);
+        int N = s.length;
+        for (int i = 0; i < N; i++) {
         	ArrayList<ArrayList<Integer>> newList = new ArrayList<ArrayList<Integer>>();
         	for (ArrayList<Integer> val : ret) {
         		ArrayList<Integer> current = new ArrayList<Integer>(val);
