@@ -13,6 +13,9 @@ If n = 4 and k = 2, a solution is:
   [1,4],
 ]
 
+Difficulty : Hard -- Not long code, but I tend to struggle
+Solution: Recursion. Notice the paramerizing of startNum and endNum is the key for recursion
+
 */
 
 public class Solution {
@@ -32,7 +35,12 @@ public class Solution {
             result.add(combination);
             return;
         }
-  
+        
+        // Do not proceed if we don't have enough numbers to fill the remaining spots
+        if (endNum - startNum < path.length - 1 - pos) {
+            return;
+        }
+              
         for (int i = startNum; i <= endNum; i++) { //i is using which number
             path[pos] = i;
             populateResult(i + 1, endNum, pos + 1, result, path);//use next number on next position
