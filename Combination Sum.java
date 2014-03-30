@@ -1,5 +1,5 @@
-/*Combination Sum Total Accepted: 3841 Total Submissions: 15041 My Submissions
-Given a set of candidate numbers (C) and a target number (T), find all unique combinations in C where the candidate numbers sums to T.
+/*
+ * Given a set of candidate numbers (C) and a target number (T), find all unique combinations in C where the candidate numbers sums to T.
 
 The same repeated number may be chosen from C unlimited number of times.
 
@@ -11,9 +11,12 @@ For example, given candidate set 2,3,6,7 and target 7,
 A solution set is: 
 [7] 
 [2, 2, 3] 
- * */
-import java.util.*;
 
+Difficulty : Medium -- However, when I tried this problem for the second time, I got tired and couldn't articulate fast even though I thought about the key constraint of target >= src[i]
+Solution: Backtracking with a greedy strategy. Fill in the small candidates as many as possible. Use the constraint of target >= src[i] to terminate the loop and naturally terminate 
+the recursion by reaching the end of recursion function.
+
+ * */
 public class Solution {
 
     public ArrayList<ArrayList<Integer>> combinationSum(int[] candidates, int target) {
@@ -38,6 +41,7 @@ public class Solution {
     		return;
     	}
     	
+    	// Loop on start to indicate for the recursive callee, that's the "smallest" candidate among the remaining bigger elements
     	for (int i = start; i < src.length && target >= src[i]; i++) {
     		partial.add(src[i]);
     		fillList(src, target -  src[i], i, partial, result);
