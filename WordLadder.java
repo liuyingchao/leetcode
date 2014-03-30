@@ -35,7 +35,7 @@ public class Solution {
     }
     public int ladderLength(String start, String end, HashSet<String> dict) {
         if (start == null || end == null || start.length() != end.length()) return 0;
-        
+        if (start.equals(end)) return 1;
         int n = start.length();
         
         // Initialize the queue
@@ -58,10 +58,6 @@ public class Solution {
     		    // IMPORTANT: be careful with declaring the array at this level instead of before the outerloop!!
     		    char[] arr = current.toCharArray();
     		    for (char c = 'a'; c <= 'z'; c++) {
-                    if (c == arr[i]) {
-                        continue;
-                    }
-                    
                     arr[i] = c;
                     String s = String.valueOf(arr);
                     // Must check here instead of outside the double loop, because end may not be in the dictionary.
@@ -80,7 +76,6 @@ public class Solution {
     	return 0;
     }
 }
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
