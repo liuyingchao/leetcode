@@ -37,7 +37,7 @@ public class Solution {
         		result.add(interval);
         	} else if (copy.end < interval.start) { // We run into an interval behind the copy ==> insert copy and mark inserted
         		result.add(copy);
-        		result.add(interval);
+        		result.add(interval);   // NOTE: when I wrote on paper, I missed this line about the interval itself
         		inserted = true;
         	} else {    // Overlapping ==> keep merging
         		copy.start = Math.min(interval.start, copy.start);
@@ -52,7 +52,7 @@ public class Solution {
 }
 
 
-//  The vollowing version is ery verbose. Should be refactored.
+//  The vollowing version is very verbose. Should be refactored.
 public class Solution {
     public ArrayList<Interval> insert(ArrayList<Interval> intervals, Interval newInterval) {
         ArrayList<Interval> result = new ArrayList<Interval>();
