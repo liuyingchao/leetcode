@@ -8,6 +8,10 @@ Return 1 since the palindrome partitioning ["aa","b"] could be produced using 1 
 The following DP solution times out on the largest input
 
 Copied from https://github.com/guolinaileen/abc/blob/master/Palindrome%20Partitioning%20II.java
+
+Difficulty : Hard
+Solution: the key idea is to use palin array to memorize and get O(1) for each new filling into palin
+and cuts comparison
  * */
 public class Solution {
     public int minCut(String s) {
