@@ -44,6 +44,9 @@ public class Solution {
     	// Loop on start to indicate for the recursive callee, that's the "smallest" candidate among the remaining bigger elements
     	for (int i = start; i < src.length && target >= src[i]; i++) {
     		partial.add(src[i]);
+    		// Comparred with Combination Sum II, the key difference is the 3rd parm of start. When we
+    		// pass in i, we allow duplicates to fit in as many times as possible; when we pass in i+1,
+    		// we naturally skip the current element to avoid duplicate
     		fillList(src, target -  src[i], i, partial, result);
     		partial.remove(partial.size() - 1);
     	}
