@@ -15,7 +15,7 @@ A solution set is:
 import java.util.*;
 
 public class Solution {
-	
+
     public ArrayList<ArrayList<Integer>> combinationSum(int[] candidates, int target) {
     	HashSet<Integer> cSet =  new HashSet<Integer>();
     	for (int i = 0; i < candidates.length; i++) {
@@ -33,10 +33,7 @@ public class Solution {
     
     private void fillList(Integer[] src, int target, int start, ArrayList<Integer> partial, ArrayList<ArrayList<Integer>> result) {
     	if (target == 0) {
-    		ArrayList<Integer> element =  new  ArrayList<Integer>();
-    		for (Integer current : partial) {
-    			element.add(current);
-    		}
+    		ArrayList<Integer> element =  new  ArrayList<Integer>(partial);
     		result.add(element);
     		return;
     	}
