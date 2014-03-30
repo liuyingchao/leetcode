@@ -11,6 +11,53 @@ compare a pair of char each time, instead of comparing the whole substring. So w
 and we don't need to use the current "max" to affect step. More importantly, we don't need duplicate code to loop
 to both directions.
  * */
+ // v4
+ public class Solution {
+    public String longestPalindrome(String s) {
+        int n = s.length();
+        int max = 1;
+        String candidate = s.substring(0, 1);        
+        
+        int start, end;
+        for (int i = 0; i < n; i++) {
+        	int step = 1;
+        	// Palindrome of odd length
+        	start = i-step;
+        	end = i+step;
+        	int len = 1;
+        	while (start >= 0 && end < n && s.charAt(start) == s.charAt(end)) {
+        		len = 1 + step * 2;
+        		step++;
+        		start = i - step;
+        		end = i + step;        				
+        	}
+        	if (len > max) {
+        		max = len;
+        		candidate = s.substring(start+1, end);
+        	}
+
+        	// Palindrome of even length
+        	step = 0;
+        	start = i;
+        	end = i + 1;
+        	len = 1;
+        	while (start >= 0 && end < n && s.charAt(start) == s.charAt(end)) {
+        		len = (step+1) * 2;
+        		step++;
+        		start = i - step;
+        		end = i + step + 1;
+        	}
+        	if (len > max) {
+        		max = len;
+        		candidate = s.substring(start+1, end);
+        	}
+        }
+
+        return candidate;
+    }    
+}
+ 
+ // v3
  public class Solution {
     public String longestPalindrome(String s) {
         int n = s.length();
